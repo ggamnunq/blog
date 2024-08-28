@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junyong Blog - 글 보기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        header {
+            background: #2a3b5e;
+            color: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+        .post-title {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #2a3b5e;
+        }
+        .post-date {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .post-content {
+            margin-bottom: 30px;
+            color: #555;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+            line-height: 1.8;
+            font-size: 1.1em;
+            white-space: pre-line;
+        }
+        .post-actions {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            top: 29px;
+            gap: 10px;
+            width: 50%;
+        }
+        .post-actions button,
+        .post-navigation button {
+            padding: 6px 12px;
+            font-size: 0.8em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .post-actions button {
+            background: #5b9bd5;
+            color: #fff;
+        }
+        .post-actions button:hover {
+            background: #4a8ac5;
+        }
+        .post-navigation {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .post-navigation button {
+            background: #2a3b5e;
+            color: #fff;
+        }
+        .post-navigation button:hover {
+            background: #1d2c45;
+        }
+        form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 th:onclick="|location.href='@{/..}'|">준용이의 우당탕탕 블로그</h1>
+</header>
+<div class="container">
+    <h2 class="post-title" th:text="${post.getTitle}">글 제목</h2>
+    <div class="post-date">작성일: 2024-07-10</div>
+    <div class="post-content" th:text="${post.content}">
+        글 내용...
+    </div>
+    <div class="post-actions">
+        <form th:action="@{/post/{postId}/delete(postId=${post.id})}" method="post">
+            <button type="submit" style="background-color:#C92828">글 삭제</button>
+        </form>
+        <button th:onclick="|location.href='@{/post/{postId}/edit(postId=${post.id})}'|">글 수정</button>
+    </div>
+    <div class="post-navigation">
+        <button th:if="${previousId != null}" th:onclick="|location.href='@{/post/{previousId}(previousId=${previousId})}'|">이전 글</button>
+        <button th:if="${nextId != null}" th:onclick="|location.href='@{/post/{nextId}(nextId=${nextId})}'|">다음 글</button>
+        <button th:if="${previousPost != null}" th:onclick="|location.href='@{/post/{previousId}(previousId=${previousPost.getId})}'|">이전 글</button>
+        <button th:if="${nextPost != null}" th:onclick="|location.href='@{/post/{nextId}(nextId=${nextPost.getId})}'|">다음 글</button>
+    </div>
+
+</div>
+</body>
+</html>

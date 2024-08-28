@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junyong Blog</title>
+</head>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: #2a3b5e;
+        color: #fff;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        align-items: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 1.8em;
+        cursor: pointer;
+    }
+    .container {
+        margin: 20px 25% auto 20%;
+        display: flex;
+    }
+    .profile {
+        background: hsl(0, 0%, 100%);
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        width: 200px;
+        top: 20px;
+        height: 400px;
+    }
+    .profile img {
+        width: 100%;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .profile_small img {
+        width: 10%;
+        border-radius: 50%;
+    }
+    .profile h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
+        color: #333;
+        text-align: center;
+    }
+    .profile p {
+        margin: 5px 0;
+        font-size: 0.9em;
+        color: #666;
+        text-align: center;
+    }
+    .main-content {
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        flex: 1;
+        margin-left: 15px;
+
+    }
+    .posts {
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+     .posts-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .posts-header h2 {
+        margin: 0;
+        color: #333;
+        margin-left : 10px;
+    }
+    .post {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+    }
+    .post>div{
+        width : auto;
+        height : 110px;
+    }
+    .post:hover{
+        cursor : pointer;
+        background-color : #F0F0F0;
+
+    }
+    .post:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    .post h3 {
+        height : 20px;
+        margin-top: 25px;
+        font-size: 1.5em;
+        color: #324d80;
+        margin-left : 10px;
+    }
+    .post p {
+        width : 350px;
+        height : 10px;
+        margin: 5px 0 0;
+        margin-bottom: 25%;
+        color: #666;
+        margin-left : 10px;
+        font-size : 13px;
+    }
+    .post .date {
+        font-size: 0.8em;
+        color: #aaa;
+        margin-right : 10px;
+
+        text-align : right;
+
+    }
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    .actions select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-size: 1em;
+    }
+    .actions input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+    .actions button {
+        padding: 10px 20px;
+        background: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .actions select,
+    .actions input[type="text"],
+    .actions button {
+        outline: none;
+    }
+    .actions button:hover {
+        background: #45a049;
+    }
+     .actions button {
+        padding: 10px 20px;
+        background: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .actions button:hover {
+        background: #45a049;
+    }
+    .write-button {
+        padding: 10px 20px;
+        background: #324d80;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .write-button:hover {
+        background: #283a64;
+    }
+    a:link, a:visited{
+        color:inherit;
+        text-decoration : none;
+    }
+    header h1{
+        cursor : pointer;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+    .pagination a {
+        color: #324d80;
+        padding: 8px 16px;
+        text-decoration: none;
+        margin: 0 4px;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.2s ease;
+    }
+    .pagination a:hover {
+        background-color: #f0f0f0;
+    }
+    .pagination a.active {
+        background-color: #324d80;
+        color: white;
+        border: 1px solid #324d80;
+    }
+
+</style>
+<body>
+    <div class="head">
+        <header>
+            <h1 th:onclick="|location.href='@{/?type=&keyword=&page=1}'|" style="margin-left: 20%;">준용이의 우당탕탕</h1>
+        </header>
+    </div>
+    <div class="body">
+        <div class="container">
+            <div class="profile">
+                <img th:src="@{/img/profile.jpg}" alt="프로필 사진">
+                <h3>김준용</h3>
+                <p class="profile_small"><img th:src="@{/img/github.jpg}"> GGamNunq</p>
+                <p class="profile_small"><img th:src="@{/img/school.jpg}"> 한성대학교</p>
+                <p class="profile_small"><img th:src="@{/img/mail.jpg}">rlawnsdyd530@gmail.com</p>
+                <p>블로그를 만들어봤는데요, 제가 어디까지 만들 수 있을진 모르겠네요. 모두 화이팅해요 하하ㅏ</p>
+            </div>
+            <div class="main-content">
+                <table >
+                    <tbody>
+                        <div class="posts-header">
+                            <h2>Posts</h2>
+                            <button class="write-button" th:onclick="|location.href='@{/post/write}'|">글 작성하기</button>
+                        </div>
+                        <tr th:each="post : ${posts}">
+                            <div class="post" th:onclick="|location.href='@{/post/{postId}(postId=${post.id})}'|">
+                                <div>
+                                    <h3><a th:text="${#strings.abbreviate(post.getTitle,25)}">글 제목 1</a></h3>
+                                    <p th:text="${#strings.abbreviate(post.content,20)}">글 내용 1...</p>
+                                </div>
+                                <div class="date">2024-07-10</div>
+                            </div>
+                        </tr>
+                    </tbody>
+                    <!-- 더 많은 글들이 여기에 추가될 수 있습니다. -->
+                </table>
+                <!-- Pagination -->
+                <div class="pagination" th:with="startPage=${ 5*(page.getNumber()/5)+1 }, pageTotal=${page.getTotalPages()}">
+                    <a th:if="${startPage-5 >0 }" th:href="@{/(type=${type}, keyword=${keyword}, page=${startPage-5})}"
+                       class="prev" >&laquo; 이전</a>
+                    <a th:each="i : ${#numbers.sequence(startPage, startPage + 4)}"
+                       th:if="${i <= pageTotal}"
+                       th:href="@{/(type=${type}, keyword=${keyword}, page=${i})}"
+                       th:text="${i}"
+                       th:classappend="${i == page.getNumber() + 1} ? 'active'" class="page-number">
+                    </a>
+
+                    <a th:if="${startPage+5 <= pageTotal}"
+                       th:href="@{/(type=${type}, keyword=${keyword}, page=${startPage+5})}"
+                       class="next">다음 &raquo;</a>
+                </div>
+                <div>
+                    <form class="actions" th:action method="get">
+                        <select name="type">
+                            <option value="title">제목</option>
+                            <option value="content">글 내용</option>
+                            <option value="all">제목+내용</option>
+                        </select>
+                        <input type="text" name="keyword" id="search" placeholder="검색어를 입력해주세요">
+                        <button type="submit">검색</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+spring:
+  datasource:
+
+#    mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/blog?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: 53099035
+
+#    h2
+#    url: jdbc:h2:tcp://localhost/~/blog
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_batch_fetch_size: 50
+    # show_sql: true
+        format_sql: true
+#        dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
+server:
+  port: 8081
