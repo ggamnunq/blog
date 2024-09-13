@@ -22,14 +22,14 @@ public class EditPostController {
 
         Post post = postService.findById(postId);
         model.addAttribute("post", post);
-        return "post/edit";
+        return "page/edit";
     }
 
     @PostMapping("/{postId}/edit")
     public String edit(@PathVariable("postId") Long postId, @ModelAttribute("post") PostEditDto form) {
 
         postService.update(postId, form);
-        return "redirect:/post/{postId}";
+        return "redirect:/page/{postId}";
     }
 
 

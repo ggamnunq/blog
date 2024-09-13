@@ -25,7 +25,7 @@ public class WritePostController {
 
         model.addAttribute("post", new Post());
 
-        return "post/writePost";
+        return "page/writePost";
     }
 
     @PostMapping("/write")

@@ -1,6 +1,5 @@
 package hello.blog.controller;
 
-import hello.blog.domain.Post;
 import hello.blog.dto.PostDto;
 import hello.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,7 +35,7 @@ public class HomeController {
         model.addAttribute("page", page);
         model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
-        return "home/home";
+        return "page/home";
     }
 
 }

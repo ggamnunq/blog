@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>글 작성하기</title>
+        <title>Junyong Blog</title>
         <style>
             body {
                 font-family: 'Arial', sans-serif;
@@ -12,13 +12,15 @@
                 padding: 0;
             }
             header {
-            background: #2a3b5e;
+                background: #2a3b5e;
                 color: #fff;
                 padding: 15px 0;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                justify-content: center;
                 padding: 10px 20px;
+                align-items: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                text-align: center;
             }
             header h1 {
                 margin: 0;
@@ -87,7 +89,7 @@
             <div class="form-container">
                 <h2>글 작성하기</h2>
                 <form th:action th:object="${post}" method="post">
-                    <input th:field="*{title}" type="text" placeholder="제목을 입력하세요" required>
+                    <input th:field="*{title}" type="text" maxlength="25" placeholder="제목을 입력하세요" required>
                     <textarea th:field="*{content}" rows="10" placeholder="내용을 입력하세요" required></textarea>
                     <input type="submit" value="작성 완료">
                 </form>

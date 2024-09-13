@@ -3,18 +3,12 @@ package hello.blog.controller;
 import hello.blog.domain.Post;
 import hello.blog.dto.PostDto;
 import hello.blog.service.PostService;
-import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -35,7 +29,7 @@ public class PostController {
         model.addAttribute("post", post);
         model.addAttribute("previousPost", previousPostDto);
         model.addAttribute("nextPost", nextPostDto);
-        return "post/post";
+        return "page/post";
     }
 
     @PostMapping("/{postId}/delete")

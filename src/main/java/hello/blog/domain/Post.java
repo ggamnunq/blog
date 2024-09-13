@@ -1,22 +1,23 @@
 package hello.blog.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
-@Data
+@Getter
 public class Post {
 
     @Id @GeneratedValue
-    @Column(name = "post_id")
+    @Column(name = "post_id", columnDefinition = "LONGTEXT")
     private Long id;
     private String title;
+    @Lob
+    @Column(columnDefinition = "longtext")
     private String content;
 
     public Post() {
+
     }
 
     public Post(String title, String content) {

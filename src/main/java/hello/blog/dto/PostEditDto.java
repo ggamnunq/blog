@@ -14,7 +14,5 @@ public class PostEditDto {
 
     @NotNull
     private String content;
-    private boolean hasPrevious;
-    private boolean hasNext;
 
 }
