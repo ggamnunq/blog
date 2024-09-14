@@ -1,4 +1,4 @@
-package hello.blog.dto;
+package hello.blog.dto.aboutPost;
 
 import hello.blog.domain.Post;
 import jakarta.validation.constraints.NotBlank;

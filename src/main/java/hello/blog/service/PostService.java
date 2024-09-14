@@ -1,8 +1,8 @@
 package hello.blog.service;
 
 import hello.blog.domain.Post;
-import hello.blog.dto.PostDto;
-import hello.blog.dto.PostEditDto;
+import hello.blog.dto.aboutPost.PostDto;
+import hello.blog.dto.aboutPost.PostEditDto;
 import hello.blog.repository.PostRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;

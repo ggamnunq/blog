@@ -1,7 +1,7 @@
-package hello.blog.controller;
+package hello.blog.controller.aboutPost;
 
 import hello.blog.domain.Post;
-import hello.blog.dto.PostEditDto;
+import hello.blog.dto.aboutPost.PostEditDto;
 import hello.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class EditPostController {
     public String edit(@PathVariable("postId") Long postId, @ModelAttribute("post") PostEditDto form) {
 
         postService.update(postId, form);
-        return "redirect:/page/{postId}";
+        return "redirect:/post/{postId}";
     }
 
 

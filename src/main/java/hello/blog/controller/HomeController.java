@@ -1,6 +1,6 @@
 package hello.blog.controller;
 
-import hello.blog.dto.PostDto;
+import hello.blog.dto.aboutPost.PostDto;
 import hello.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
