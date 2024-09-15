@@ -1,6 +1,7 @@
 package hello.blog.service;
 
 import hello.blog.domain.Member;
+import hello.blog.dto.aboutMember.MemberSaveDto;
 import hello.blog.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,15 @@ public class MemberService {
             bindingResult.rejectValue(
                     "loginId", "duplicate", "이미 사용중인 아이디입니다"
             );
+        }
+    }
+
+    public void validatePasswordCorrect(MemberSaveDto member, BindingResult bindingResult) {
+
+        String password = member.getPassword();
+        String confirm = member.getConfirmPassword();
+        if (!password.equals(confirm)) { //비밀번호 일치하지 않을 경우
+            bindingResult.rejectValue("password", "pwCorrect", "비밀번호가 일치하여야 합니다.");
         }
     }
 

@@ -2,6 +2,7 @@ package hello.blog.controller.aboutMember;
 
 import hello.blog.domain.Member;
 import hello.blog.dto.aboutMember.MemberDto;
+import hello.blog.dto.aboutMember.MemberSaveDto;
 import hello.blog.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +29,17 @@ public class MemberController {
     @GetMapping("/signup")
     public String signUpPage(Model model) {
 
-        model.addAttribute("member", new Member());
+        model.addAttribute("member", new MemberSaveDto());
 
         return "page/signup";
     }
 
     @PostMapping("/signup")
-    public String signUp(@Valid @ModelAttribute("member") MemberDto form, BindingResult bindingResult) {
+    public String signUp(@Valid @ModelAttribute("member") MemberSaveDto form, BindingResult bindingResult) {
 
         Member member = new Member(form.getLoginId(), form.getName(), form.getPassword());
         memberService.validateDuplicateMember(member, bindingResult);
+        memberService.validatePasswordCorrect(form, bindingResult);
 
         //폼에 에러 있을 경우 다시 회원가입 페이지 리턴
         if (bindingResult.hasErrors()) {
