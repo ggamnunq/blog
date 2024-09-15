@@ -3,6 +3,7 @@ package hello.blog.controller.aboutMember;
 import hello.blog.domain.Member;
 import hello.blog.dto.aboutMember.MemberDto;
 import hello.blog.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,15 +34,18 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String signUp(@ModelAttribute("member") MemberDto form, BindingResult bindingResult) {
+    public String signUp(@Valid @ModelAttribute("member") MemberDto form, BindingResult bindingResult) {
 
         Member member = new Member(form.getLoginId(), form.getName(), form.getPassword());
-        try {
-            memberService.save(member);
-        } catch (IllegalStateException e) {
-            bindingResult.reject("idFail", "Id가 중복됩니다.");
+        memberService.validateDuplicateMember(member, bindingResult);
+
+        //폼에 에러 있을 경우 다시 회원가입 페이지 리턴
+        if (bindingResult.hasErrors()) {
+            return "page/signup";
         }
 
+        //문제 없을 경우 회원가입 진행
+        memberService.registerMember(member);
         return "redirect:/";
     }
 }
