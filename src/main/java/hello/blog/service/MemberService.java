@@ -1,6 +1,7 @@
 package hello.blog.service;
 
 import hello.blog.domain.Member;
+import hello.blog.dto.aboutMember.MemberDto;
 import hello.blog.dto.aboutMember.MemberSaveDto;
 import hello.blog.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
@@ -19,7 +20,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final EntityManager em;
 
-    public void validateDuplicateMember(Member member, BindingResult bindingResult) {
+    public void validateDuplicateId(Member member, BindingResult bindingResult) {
 
         Optional<Member> findByLoginId = memberRepository.findByLoginId(member.getLoginId());
 
@@ -29,6 +30,15 @@ public class MemberService {
             );
         }
     }
+
+    public Member login(String loginId, String password) {
+
+        return memberRepository.findByLoginId(loginId)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
+
+    }
+
 
     public void validatePasswordCorrect(MemberSaveDto member, BindingResult bindingResult) {
 

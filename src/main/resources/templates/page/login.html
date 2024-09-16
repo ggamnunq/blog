@@ -52,7 +52,7 @@
         }
         .form-group input {
             width: 100%;
-            paddcpicing: 10px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
@@ -81,6 +81,9 @@
         .signup-link:hover {
             text-decoration: underline;
         }
+        .field-error{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -91,14 +94,18 @@
 
 <div class="login-container">
     <h2>로그인</h2>
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/login}" th:object="${member}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">전체 오류 메시지</p>
+        </div>
         <div class="form-group">
             <label for="id">아이디</label>
-            <input type="text" id="id" name="id" required>
+            <input type="text" id="id" th:field="*{loginId}" required>
         </div>
         <div class="form-group">
             <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" th:field="*{password}" required>
         </div>
         <button type="submit" class="login-button">로그인</button>
     </form>
