@@ -16,6 +16,10 @@ public class Post {
     @Column(columnDefinition = "longtext")
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     public Post() {
 
     }
