@@ -2,9 +2,11 @@ package hello.blog.service;
 
 import hello.blog.domain.Member;
 import hello.blog.dto.aboutMember.MemberDto;
+import hello.blog.dto.aboutMember.MemberLoginDto;
 import hello.blog.dto.aboutMember.MemberSaveDto;
 import hello.blog.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final EntityManager em;
 
+
     public void validateDuplicateId(Member member, BindingResult bindingResult) {
 
         Optional<Member> findByLoginId = memberRepository.findByLoginId(member.getLoginId());
@@ -31,12 +34,17 @@ public class MemberService {
         }
     }
 
-    public Member login(String loginId, String password) {
+    public MemberLoginDto login(String loginId, String password) {
 
-        return memberRepository.findByLoginId(loginId)
+        Member member = memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
 
+        if (member == null) {
+            return null;
+        }
+        //Member -> MemberLoginDto
+        return new MemberLoginDto(member.getLoginId(), member.getPassword());
     }
 
 

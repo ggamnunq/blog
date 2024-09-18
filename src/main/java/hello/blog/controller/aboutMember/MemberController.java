@@ -5,6 +5,10 @@ import hello.blog.dto.aboutMember.MemberDto;
 import hello.blog.dto.aboutMember.MemberLoginDto;
 import hello.blog.dto.aboutMember.MemberSaveDto;
 import hello.blog.service.MemberService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,18 +34,39 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult) {
+    public String login(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult,
+                        HttpServletRequest request) {
 
-        String loginId = memberDto.getLoginId();
-        String password = memberDto.getPassword();
-        Member member = memberService.login(loginId, password);
-        if (member == null) {
+        if (bindingResult.hasErrors()) {
+            return "page/login";
+        }
+
+        MemberLoginDto loginMember = memberService.login(memberDto.getLoginId(), memberDto.getPassword());
+        if (loginMember == null) {
             log.info("incorrect login");
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 올바르지 않습니다.");
             return "page/login";
         }
+        //로그인 성공
+
+        //세션이 있으면 세션 반환, 없으면 신규 생성
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
         return "redirect:/";
 
+    }
+
+    //로그아웃
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+
+        //세션 삭제
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); //세션 제거
+        }
+        return "redirect:/";
     }
 
     //회원가입
